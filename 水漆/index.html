@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>晨阳水漆</title>
+<link rel="stylesheet" type="text/css" href="style/reset.css">
+<link rel="stylesheet" type="text/css" href="style/layout.css">
+<script src="js/common.js"></script>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script>var channel = '20'</script>
+<script src="http://static.adwo.com/jstrackEvent/trackEvent.min.js"></script>
+<script>$(function(){track(channel,10570);})</script>    
+</head>
+
+<body>
+<div class="container">
+	<div id="bg" class="abs">
+		<canvas id="mycanvas" class="abs"></canvas>
+		<a  class="tianmao abs" href="http://cysq.tmall.com/" target="_blank" onClick="track(channel,10571)"></a> 
+		<a  class="www abs" href="http://siteapp.baidu.com/site/www.chenyang.com?host=www.chenyang.com&qq-pf-to=pcqq.c2c&src=http%3A%2F%2Fwww.chenyang.com%2F2014%2Factivity_0327%2F44.html" target="_blank" onClick="track(channel,10572)"></a>
+		<a  class="tel abs" href="tel:4001591777" onClick="track(channel,10573)"></a>
+		<figure><img class="tishi1 abs none" src="images/intro1.png" alt=""></figure>
+		<figure><img class="tishi2 abs none" src="images/intro2.png" alt=""></figure>
+		<figure><img class="tishi3 abs none" src="images/intro3.png" alt=""></figure>
+	</div>
+</div>
+</body>
+<!-- 擦出动作js开始 -->
+<script>
+    var deviceWidth = document.documentElement.clientWidth,
+    scale = deviceWidth/320;
+
+    var mycanvas=document.getElementById("mycanvas"),cxt1= mycanvas.getContext("2d");
+    var width1=mycanvas.width=320,height1=mycanvas.height=524;
+    var x1,y1, a=25,timeout;
+    var leftx=0, topy=0;
+   
+    // cxt1.fillStyle="rgba(0,0,0,0.6)";
+    // cxt1.fillRect(0,0,width1,height1);
+    // tapClip(mycanvas,cxt1,leftx,topy,width1,height1);
+        var img= new Image();
+        img.src = "images/canvasbg.jpg";
+        img.onload = function(){
+	cxt1.drawImage(img,0,0,width1,height1)
+	 tapClip(mycanvas,cxt1,leftx,topy,width1,height1);
+	}
+
+    function tapClip(c,cxt,leftx,topy,width,height){
+	      var hastouch="ontouchstart"in window?true:false,
+	            tapstart = hastouch?"touchstart":"mousedown",
+	            tapmove = hastouch?"touchmove":"mousemove",
+	            tapend = hastouch?"touchend":"mouseup";
+	      cxt.lineCap="round";
+	      cxt.lineJoin="round";
+	      cxt.lineWidth=a*2;
+	      cxt.globalCompositeOperation = "destination-out";
+	     
+	      c.addEventListener(tapstart,function(e){	
+		        clearTimeout(timeout);    // setTimeout() 方法设置的 timeout
+		        e.preventDefault();
+		        x1 = hastouch?e.targetTouches[0].pageX:e.clientX-canvas.offsetLeft;
+		        y1 = hastouch?e.targetTouches[0].pageY:e.clientY-canvas.offsetTop;
+		       // console.log(x1/2);
+		        cxt.save();
+		        cxt.beginPath();
+		        cxt.arc(x1/scale-leftx,y1/scale-topy,1,0,2*Math.PI);
+		        cxt.fill();
+		        cxt.restore();
+
+		        c.addEventListener(tapmove,tapmoveHandler);
+
+		        c.addEventListener(tapend,function(e){
+		           c.addEventListener(tapmove,tapmoveHandler);
+		           timeout=setTimeout(function(){
+		              var imgData=cxt.getImageData(0,0,width,height); //getImageData() 复制画布上指定矩形的像素数据
+		              var dd=0;
+		              for(var x=0;x<imgData.width;x+=30){
+		                for(var y=0;y<imgData.height;y+=30){
+		                  var i=(y*imgData.width+x)*4;
+		                //  console.log(i);
+		                  if(imgData.data[i+3]>0){dd++}  //第i个像素的透明度
+		                }
+		              }
+
+		              if(dd/(imgData.width*imgData.height/900)<0.8){
+		                c.className="opacity0";
+		                if( c.className=="opacity0"){
+		                	$(".tishi1").fadeIn(2000);
+		                	$(".tishi2").fadeIn(2500);
+		                	$(".tishi3").fadeIn(2800);
+		                	$("canvas").hide();
+		                }
+		                
+		              }
+		           },100)
+		        })
+
+	      })
+
+	      function tapmoveHandler(e){
+		        clearTimeout(timeout);
+		        e.preventDefault();
+		        x2 = hastouch?e.targetTouches[0].pageX:e.clientX-canvas.offsetLeft;
+		        y2 = hastouch?e.targetTouches[0].pageY:e.clientY-canvas.offsetTop;
+		        cxt.save();
+		        cxt.moveTo(x1/scale-leftx,y1/scale-topy);
+		        cxt.lineTo(x2/scale-leftx,y2/scale-topy);
+		        cxt.stroke();
+		        cxt.restore();
+		        x1=x2;
+		        y1=y2;
+	      }
+
+    }
+    </script>
+<!-- 擦出动作js结束 -->
+
+</html>

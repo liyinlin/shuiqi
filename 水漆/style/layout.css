@@ -1,0 +1,13 @@
+/*index css*/
+.container{min-width:320px; min-height: 524px;position: relative;}
+
+#bg{width:320px; height:524px; background: url("../images/bg.jpg") no-repeat;background-size:320px 524px; }
+canvas{width:320px;height:524px;z-index:99;}
+ .opacity0{opacity: 0 !important;}
+ .tianmao{width:81px;height:30px; background: url("../images/tianmao.png") no-repeat;background-size:81px 30px;bottom:125px;left:53px;}
+.www{width:81px;height:30px; background: url("../images/www.png") no-repeat;background-size:81px 30px;bottom:125px;right:53px;}
+.tel{width:185px; height:15px;background: url("../images/tel.png") no-repeat;background-size:185px 15px;bottom:85px;left:65px;}
+
+.tishi1{width:85px;height:33px;top:125px;left:3px;z-index: 99;}
+.tishi2{width:85px;height:33px;top:275px;left:44px;z-index: 99;}
+.tishi3{width:85px;height:33px;top:250px;left:226px;z-index: 99;}

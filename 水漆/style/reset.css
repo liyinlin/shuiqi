@@ -1,0 +1,13 @@
+/*css reset*/
+*{margin:0; padding:0;}
+body{ background:#fff;}
+ul,ol{ list-style:none;}
+a{ text-decoration:none;}
+img{ border:none;}
+
+.clearfix:after{ content:"."; display:block; clear:both; height:0; overflow:hidden;}
+.clearfix{ zoom:1;}
+.left{float:left}
+.right{float:right;}
+.abs{position: absolute;}
+.none{display: none;}
